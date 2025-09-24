@@ -1,0 +1,182 @@
+---
+title: "GWAS Plots"
+format: html
+editor: visual
+---
+
+## GWAS
+
+QQ- Average FA
+
+```{r}
+library(qqman)
+
+AverageFA <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P1.assoc.linear", header = TRUE)
+
+head(AverageFA)
+
+# Make QQ plot of p-values
+qq(AverageFA$P,
+   main = "QQ Plot of GWAS of the Average FA",
+   col = "blue",
+   pch = 20,
+   cex = 1.2,
+   ylim = c(0, max(-log10(AverageFA$P), na.rm = TRUE))
+)
+```
+
+QQ - Average AD
+
+```{r}
+library(qqman)
+
+# Load your GWAS results
+AverageAD <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P2.assoc.linear", header = TRUE)
+
+# Check column names
+head(AverageAD)
+
+# Make QQ plot of p-values
+qq(AverageAD$P,
+   main = "QQ Plot of GWAS of the Average AD",
+   col = "blue",
+   pch = 20,
+   cex = 1.2,
+   ylim = c(0, max(-log10(AverageAD$P), na.rm = TRUE))
+)
+```
+
+QQ - Average RD
+
+```{r}
+library(qqman)
+
+# Load your GWAS results
+AverageRD <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P3.assoc.linear", header = TRUE)
+
+# Check column names
+head(AverageRD)
+
+# Make QQ plot of p-values
+qq(AverageRD$P,
+   main = "QQ Plot of GWAS of the Average RD",
+   col = "blue",
+   pch = 20,
+   cex = 1.2,
+   ylim = c(0, max(-log10(AverageRD$P), na.rm = TRUE))
+)
+```
+
+QQ plot - Average MD
+
+```{r}
+library(qqman)
+
+# Load your GWAS results
+AverageMD <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P4.assoc.linear", header = TRUE)
+
+# Check column names
+head(AverageMD)
+
+# Make QQ plot of p-values
+qq(AverageMD$P,
+   main = "QQ Plot of GWAS of the Average MD",
+   col = "blue",
+   pch = 20,
+   cex = 1.2,
+   ylim = c(0, max(-log10(AverageMD$P), na.rm = TRUE))
+)
+```
+
+Manhattan Plot FA
+
+```{r}
+library(qqman)
+AverageFA <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P1.assoc.linear", header = TRUE)
+
+head(AverageFA)
+AverageFA_add <- subset(AverageFA, TEST == "ADD")
+head(AverageFA_add)
+
+manhattan(AverageFA_add,
+          chr = "CHR",       
+          bp = "BP",        
+          snp = "SNP",       
+          p = "P",           
+          genomewideline = -log10(5e-8),  
+          suggestiveline = -log10(1e-5),  
+          col = c("green", "purple"),    
+          cex = 0.6,         
+          main = "Manhattan Plot: GWAS AverageFA"
+)
+
+```
+
+Manhattan Plot - AD
+
+```{r}
+library(qqman)
+AverageAD <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P2.assoc.linear", header = TRUE)
+
+head(AverageAD)
+AverageAD_add <- subset(AverageAD, TEST == "ADD")
+head(AverageAD_add)
+
+manhattan(AverageAD_add,
+          chr = "CHR",       
+          bp = "BP",        
+          snp = "SNP",       
+          p = "P",           
+          genomewideline = -log10(5e-8),  
+          suggestiveline = -log10(1e-5),  
+          col = c("black", "gray"),    
+          cex = 0.6,         
+          main = "Manhattan Plot: GWAS AverageAD"
+)
+```
+
+Manhattan Plot - RD
+
+```{r}
+library(qqman)
+AverageRD <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P3.assoc.linear", header = TRUE)
+
+head(AverageRD)
+AverageRD_add <- subset(AverageRD, TEST == "ADD")
+head(AverageRD_add)
+
+manhattan(AverageRD_add,
+          chr = "CHR",       
+          bp = "BP",        
+          snp = "SNP",       
+          p = "P",           
+          genomewideline = -log10(5e-8),  
+          suggestiveline = -log10(1e-5),  
+          col = c("black", "gray"),    
+          cex = 0.6,         
+          main = "Manhattan Plot: GWAS AverageRD"
+)
+```
+
+Manhattan Plot - MD
+
+```{r}
+library(qqman)
+AverageMD <- read.table("C:\\Users\\davie\\Desktop\\GWAS_Files\\GWAS_alltraits.P4.assoc.linear", header = TRUE)
+
+head(AverageMD)
+AverageMD_add <- subset(AverageMD, TEST == "ADD")
+head(AverageMD_add)
+
+manhattan(AverageMD_add,
+          chr = "CHR",       
+          bp = "BP",        
+          snp = "SNP",       
+          p = "P",           
+          genomewideline = -log10(5e-8),  
+          suggestiveline = -log10(1e-5),  
+          col = c("black", "gray"),    
+          cex = 0.6,         
+          main = "Manhattan Plot: GWAS AverageMD"
+)
+```
