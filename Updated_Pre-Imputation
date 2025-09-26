@@ -1,0 +1,76 @@
+
+start: MBBrains_R123_3oct2016_step5 (SNPs = 233075; individuals 385)
+markers were excluded if chromosome or position was missing (removed = 0)
+markers were excluded if alleles were indel or missing (0) (removed = 97)
+markers were de-duplicated based on location and allele (including strand awareness) (removed = 0)
+markers were renamed to match hrc1.1 nomenclature (SNPs = 232978)
+build was converted from hg18 to hg19 
+quality control was applied
+markers were excluded if allele frequency > 10sd from expected (reference) allele frequency (removed = 13)
+markers were exclude if missingness > 2% (removed = 341)
+individuals were excluded if missingness > 2% (removed = 0)
+markers were exclude in HWE p<1e-20 (removed = 0)
+individuals were excluded if heterozygosity > 4sd from sample mean (removed = 2)
+individuals were excluded if out of family average relatedness across sample was  > .01 (removed = 0)
+finish: MBBRAINS_R123-HumanCoreExome-12v1 (SNPs = 232624; individuals 383)
+
+Binaries were then prepared for michigan imputation 
+check allele frequencies (again)
+update to HRC1.1 again
+force allele A1
+convert to vcf
+sort and compress using bcftools
+impute
+Reference Panel: 1000g (hg19)
+Array Build: hg19
+rsq Filter: 0
+Phasing: eagle v2.4
+Allele Frequency Check: EUR
+Mode: QC & Imputation
+
+The imputed data is being downloaded and combined (using the dosage data).
+This is converted using the following script in plink2 
+
+plink2 \
+    --vcf chr1.Dose.vcf.gz dosage=DS --exclude-if-info "R2<0.3" \
+    --make-pgen \
+  --maf .01 \
+    --out _chr1
+
+To give you a heads up the log files suggest more markers (based on chromosome 1);
+input: 18367 markers
+post imputation 3738261 markers
+limit to R2<0.3 977805 markers
+limit to maf > 0.01 706237 markers 
+
+PLINK v2.00a4 64-bit (9 Jan 2023)
+Options in effect:
+  --exclude-if-info R2<0.3
+  --maf .01
+  --make-pgen
+  --out _chr1
+  --vcf chr1.Dose.vcf.gz dosage=DS
+
+Hostname: DESKTOP-I4ADM8R
+Working directory: D:\Data\DPMCN-MBBRAINS_R123\data\genotypes\MBBRAINS_R123-HumanCoreExome-12v1\imputed_1000g
+Start time: Tue Sep 02 12:50:39 2025
+
+Random number seed: 1756813839
+65160 MiB RAM detected; reserving 32580 MiB for main workspace.
+Using up to 16 threads (change this with --threads).
+--vcf: 3738261 variants scanned.
+--vcf: _chr1-temporary.pgen + _chr1-temporary.pvar.zst + _chr1-temporary.psam
+written.
+383 samples (0 females, 0 males, 383 ambiguous; 383 founders) loaded from
+_chr1-temporary.psam.
+977805 out of 3738261 variants loaded from _chr1-temporary.pvar.zst.
+Note: No phenotype data present.
+Calculating allele frequencies... done.
+271568 variants removed due to allele frequency threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+706237 variants remaining after main filters.
+Writing _chr1.psam ... done.
+Writing _chr1.pvar ... done.
+Writing _chr1.pgen ... done.
+
+End time: Tue Sep 02 12:51:21 2025
